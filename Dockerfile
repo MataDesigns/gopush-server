@@ -1,5 +1,10 @@
 FROM alpine:latest
 
+RUN apk --update upgrade && \
+    apk add curl ca-certificates && \
+    update-ca-certificates && \
+    rm -rf /var/cache/apk/*
+
 ADD release/linux/amd64/gopushserver /bin/
 
 RUN mkdir /db
