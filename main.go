@@ -10,7 +10,6 @@ import (
 	"github.com/gin-gonic/gin"
 
 	"./gopushserver"
-	"github.com/appleboy/gorush/gorush"
 	"github.com/facebookgo/grace/gracehttp"
 	"golang.org/x/sync/errgroup"
 )
@@ -21,10 +20,18 @@ func main() {
 		releaseMode bool
 	)
 
+	flag.StringVar(&gopushserver.Address, "A", "", "address to bind")
+	flag.StringVar(&gopushserver.Address, "address", "", "address to bind")
+	flag.StringVar(&gopushserver.Port, "p", "", "port number for gorush")
+	flag.StringVar(&gopushserver.Port, "port", "", "port number for gorush")
 	flag.BoolVar(&ping, "ping", false, "ping server")
 	flag.BoolVar(&releaseMode, "prod", false, "run in development mode")
 	flag.Usage = usage
 	flag.Parse()
+
+	if gopushserver.Port == "" {
+		gopushserver.Port = "3000"
+	}
 
 	if releaseMode {
 		gin.SetMode(gin.ReleaseMode)
@@ -48,13 +55,13 @@ func main() {
 
 	var err error
 	if err = g.Wait(); err != nil {
-		gorush.LogError.Fatal(err)
+		gopushserver.LogError.Fatal(err)
 	}
 }
 
 func RunHTTPServer() (err error) {
 	err = gracehttp.Serve(&http.Server{
-		Addr:    ":3000",
+		Addr:    gopushserver.Address + ":" + gopushserver.Port,
 		Handler: gopushserver.GetRouterEngine(),
 	})
 	return
@@ -79,7 +86,7 @@ Usage: gopushserver [options]
 
 Server Options:
     -A, --address <address>          Address to bind (default: any)
-    -p, --port <port>                Use port for clients (default: 8088)
+    -p, --port <port>                Use port for clients (default: 3000)
     --ping                           healthy check command for container
 `
 

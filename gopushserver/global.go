@@ -7,6 +7,8 @@ import (
 )
 
 var (
+	Address string
+	Port    string
 	// QueueNotification is chan type
 	QueueNotification chan PushNotification
 	ApnsClients       map[string]*apns2.Client

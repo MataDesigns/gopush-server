@@ -52,7 +52,7 @@ release-check:
 	cd $(DIST)/release; $(foreach file,$(wildcard $(DIST)/release/$(EXECUTABLE)-*),gsha256sum $(notdir $(file)) > $(notdir $(file)).sha256;)
 
 # Docker Helpers
-docker_image:
+docker_image: build_linux_amd64
 	docker build -t $(DEPLOY_ACCOUNT)/$(DEPLOY_IMAGE) -f Dockerfile .
 
 docker_release: docker_image
