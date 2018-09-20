@@ -6,6 +6,7 @@ import (
 
 	"../storage"
 	"./models"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
 	"github.com/google/uuid"
@@ -173,6 +174,7 @@ func GetRouterEngine() *gin.Engine {
 	r.Use(gin.Logger())
 	r.Use(gin.Recovery())
 	r.Use(LogMiddleware())
+	r.Use(cors.Default())
 
 	api := r.Group("/api")
 
