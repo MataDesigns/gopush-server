@@ -1,15 +1,15 @@
-package gopushserver
+package server
 
 import (
 	"encoding/json"
 	"net/http"
 
-	"../storage"
-	"./models"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
 	"github.com/google/uuid"
+	"github.com/matadesigns/gopushserver/models"
+	"github.com/matadesigns/gopushserver/storage"
 )
 
 func getApplicationsHandler(c *gin.Context) {

@@ -4,9 +4,8 @@ import (
 	"encoding/json"
 
 	"github.com/gin-gonic/gin"
-
-	"../../storage"
-	"../../storage/buntdb"
+	"github.com/matadesigns/gopushserver/storage"
+	"github.com/matadesigns/gopushserver/storage/buntdb"
 )
 
 type Application struct {

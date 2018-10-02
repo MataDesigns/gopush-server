@@ -1,2 +1,4 @@
 db/
 release/
+
+.DS_Store

@@ -1,7 +1,7 @@
-package gopushserver
+package server
 
 import (
-	"./models"
+	"github.com/matadesigns/gopushserver/models"
 )
 
 // InitWorkers for initialize all workers.

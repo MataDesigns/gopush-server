@@ -1,4 +1,4 @@
-package gopushserver
+package server
 
 import (
 	fcm "github.com/appleboy/go-fcm"

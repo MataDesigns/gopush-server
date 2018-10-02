@@ -3,9 +3,9 @@ package models
 import (
 	"fmt"
 
-	"../../storage"
-	"../../storage/buntdb"
 	"github.com/gin-gonic/gin"
+	"github.com/matadesigns/gopushserver/storage"
+	"github.com/matadesigns/gopushserver/storage/buntdb"
 )
 
 type RequestAddDevice struct {

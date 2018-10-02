@@ -5,7 +5,7 @@ import (
 	"log"
 	"strconv"
 
-	"../../storage"
+	"github.com/matadesigns/gopushserver/storage"
 	"github.com/tidwall/buntdb"
 )
 

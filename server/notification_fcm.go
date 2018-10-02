@@ -1,11 +1,11 @@
-package gopushserver
+package server
 
 import (
 	"errors"
 	"fmt"
 
-	"./models"
 	"github.com/appleboy/go-fcm"
+	"github.com/matadesigns/gopushserver/models"
 )
 
 // InitFCMClient use for initialize FCM Client.

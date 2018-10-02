@@ -1,4 +1,4 @@
-package gopushserver
+package server
 
 const (
 	// PlatFormIos constant is 1 for iOS

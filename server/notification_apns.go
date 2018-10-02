@@ -1,4 +1,4 @@
-package gopushserver
+package server
 
 import (
 	"crypto/ecdsa"
@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"time"
 
-	"./models"
+	"github.com/matadesigns/gopushserver/models"
 	"github.com/sideshow/apns2"
 	"github.com/sideshow/apns2/certificate"
 	"github.com/sideshow/apns2/payload"

@@ -1,4 +1,4 @@
-package gopushserver
+package server
 
 import (
 	"encoding/json"

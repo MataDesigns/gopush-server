@@ -9,8 +9,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 
-	"./gopushserver"
 	"github.com/facebookgo/grace/gracehttp"
+	"github.com/matadesigns/gopushserver/server"
 	"golang.org/x/sync/errgroup"
 )
 
@@ -20,17 +20,17 @@ func main() {
 		releaseMode bool
 	)
 
-	flag.StringVar(&gopushserver.Address, "A", "", "address to bind")
-	flag.StringVar(&gopushserver.Address, "address", "", "address to bind")
-	flag.StringVar(&gopushserver.Port, "p", "", "port number for gorush")
-	flag.StringVar(&gopushserver.Port, "port", "", "port number for gorush")
+	flag.StringVar(&server.Address, "A", "", "address to bind")
+	flag.StringVar(&server.Address, "address", "", "address to bind")
+	flag.StringVar(&server.Port, "p", "", "port number for gorush")
+	flag.StringVar(&server.Port, "port", "", "port number for gorush")
 	flag.BoolVar(&ping, "ping", false, "ping server")
 	flag.BoolVar(&releaseMode, "prod", false, "run in development mode")
 	flag.Usage = usage
 	flag.Parse()
 
-	if gopushserver.Port == "" {
-		gopushserver.Port = "3000"
+	if server.Port == "" {
+		server.Port = "3000"
 	}
 
 	if releaseMode {
@@ -39,30 +39,30 @@ func main() {
 		gin.SetMode(gin.DebugMode)
 	}
 
-	gopushserver.InitLog()
+	server.InitLog()
 
 	if ping {
 		if err := pinger(); err != nil {
-			gopushserver.LogError.Warnf("ping server error: %v", err)
+			server.LogError.Warnf("ping server error: %v", err)
 		}
 		return
 	}
 
-	gopushserver.InitWorkers(int64(runtime.NumCPU()), int64(8192))
+	server.InitWorkers(int64(runtime.NumCPU()), int64(8192))
 
 	var g errgroup.Group
 	g.Go(RunHTTPServer)
 
 	var err error
 	if err = g.Wait(); err != nil {
-		gopushserver.LogError.Fatal(err)
+		server.LogError.Fatal(err)
 	}
 }
 
 func RunHTTPServer() (err error) {
 	err = gracehttp.Serve(&http.Server{
-		Addr:    gopushserver.Address + ":" + gopushserver.Port,
-		Handler: gopushserver.GetRouterEngine(),
+		Addr:    server.Address + ":" + server.Port,
+		Handler: server.GetRouterEngine(),
 	})
 	return
 }
